@@ -3,6 +3,7 @@ from pythonbrew.basecommand import Command
 from pythonbrew.installer.pythoninstaller import PythonInstaller,\
     PythonInstallerMacOSX
 from pythonbrew.util import is_macosx
+from pythonbrew.log import logger
 
 class InstallCommand(Command):
     name = "install"
@@ -93,7 +94,8 @@ class InstallCommand(Command):
                 else:
                     p = PythonInstaller(arg, options)
                 p.install()
-            except:
-                continue
+            except Exception, e:
+                logger.error("Failed to install Python "+arg)
+                logger.error(str(e))
 
 InstallCommand()
